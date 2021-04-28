@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Model.Configurations;
 using Repository.GenericRepository;
+using Repository.Services;
 
 namespace Utility.Extensions
 {
@@ -20,8 +21,8 @@ namespace Utility.Extensions
             services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
             services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
 
-            //services.AddTransient<ISecurityService, SecurityService>();
-            //services.AddTransient<ITokenService, TokenService>();
+            services.AddTransient<ISecurityService, SecurityService>();
+            services.AddTransient<ITokenService, TokenService>();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
