@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Model.Configurations;
+using Repository.GenericRepository;
 
 namespace Utility.Extensions
 {
@@ -22,7 +23,7 @@ namespace Utility.Extensions
             //services.AddTransient<ISecurityService, SecurityService>();
             //services.AddTransient<ITokenService, TokenService>();
 
-            //services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddAutoMapper(typeof(MapperInitilizer));
 
