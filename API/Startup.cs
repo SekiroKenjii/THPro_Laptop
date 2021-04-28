@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Utility.Extensions;
 
 namespace API
 {
@@ -17,7 +18,9 @@ namespace API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplicationServices(_config);
             services.AddCors();
+            services.AddIdentityServices(_config);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -39,11 +42,15 @@ namespace API
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint(_config["Swagger:SwaggerUrl"], _config["Swagger:OpenApiTitle"]));
 
+            app.ConfigureExceptionHandler();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseCors(options => options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
