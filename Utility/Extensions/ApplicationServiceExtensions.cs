@@ -1,5 +1,8 @@
 ﻿using Data.EF;
 using Data.Entities;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Model.Configurations;
 using Repository.GenericRepository;
 using Repository.Services;
+using Serilog;
 
 namespace Utility.Extensions
 {
@@ -36,6 +40,29 @@ namespace Utility.Extensions
             services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
 
             return services;
+        }
+
+        public static void ConfigureExceptionHandler(this IApplicationBuilder app)
+        {
+            app.UseExceptionHandler(error =>
+            {
+                error.Run(async context =>
+                {
+                    context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                    context.Response.ContentType = "application/json";
+                    var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+                    if(contextFeature != null)
+                    {
+                        Log.Error($"Something went wrong in the {contextFeature.Error}");
+
+                        await context.Response.WriteAsync(new Error
+                        {
+                            StatusCode = context.Response.StatusCode,
+                            Message = "Internal Server Error. Please Try Again Later!"
+                        }.ToString());
+                    }
+                });
+            });
         }
     }
 }
