@@ -53,6 +53,14 @@ namespace Repository.ImageRepository
 
             using var stream = file.OpenReadStream();
 
+            if (entity == "product")
+            {
+                uploadParams.File = new FileDescription(file.FileName, stream);
+                uploadParams.Folder = $"upload/img/{entity}_new/";
+
+                return await _cloudinary.UploadAsync(uploadParams);
+            }
+
             uploadParams.File = new FileDescription(file.FileName, stream);
             uploadParams.Folder = $"upload/img/{entity}/";
 

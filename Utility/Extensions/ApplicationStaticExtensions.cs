@@ -2,8 +2,8 @@
 {
     public class ApplicationStaticExtensions
     {
-        public const string blankProductImageUrl = "https://res.cloudinary.com/dglgzh0aj/image/upload/v1619054413/upload/img/product/blank/default_product_image_zjdfbn.jpg";
-        public const string blankProductImagePublicId = "upload/img/product/blank/default_product_image_zjdfbn";
+        public const string blankProductImageUrl = "https://res.cloudinary.com/dglgzh0aj/image/upload/v1619054413/upload/img/product_new/blank/default_product_image_nhnhhs.jpg";
+        public const string blankProductImagePublicId = "upload/img/product_new/blank/default_product_image_nhnhhs";
 
         public static string BlankProductImageCaption(string name)
         {
