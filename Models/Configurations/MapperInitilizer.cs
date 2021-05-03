@@ -18,6 +18,10 @@ namespace Model.Configurations
             CreateMap<Trademark, CreateTrademarkDto>().ReverseMap();
             CreateMap<Vendor, VendorDto>().ReverseMap();
             CreateMap<Vendor, CreateVendorDto>().ReverseMap();
+            CreateMap<Product, ProductDto>().ReverseMap();
+            CreateMap<Product, CreateProductDto>().ReverseMap();
+            CreateMap<ProductImage, ProductImageDto>().ReverseMap();
+            CreateMap<ProductImage, CreateProductImageDto>().ReverseMap();
         }
     }
 }

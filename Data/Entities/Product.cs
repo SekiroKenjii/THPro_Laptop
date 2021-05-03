@@ -39,11 +39,11 @@ namespace Data.Entities
         public string Description { get; set; }
         public bool Discontinued { get; set; }
 
-        public virtual IEnumerable<OrderDetail> OrderDetails { get; set; }
-        public virtual IEnumerable<ProductImage> ProductImages { get; set; }
-        public virtual IEnumerable<WishList> WishLists { get; set; }
-        public virtual IEnumerable<ShoppingCart> ShoppingCarts { get; set; }
-        public virtual IEnumerable<UserComment> UserComments { get; set; }
-        public virtual IEnumerable<ProductRating> ProductRatings { get; set; }
+        public virtual IList<OrderDetail> OrderDetails { get; set; }
+        public virtual IList<ProductImage> ProductImages { get; set; }
+        public virtual IList<WishList> WishLists { get; set; }
+        public virtual IList<ShoppingCart> ShoppingCarts { get; set; }
+        public virtual IList<UserComment> UserComments { get; set; }
+        public virtual IList<ProductRating> ProductRatings { get; set; }
     }
 }
