@@ -11,8 +11,8 @@ namespace Repository.GenericRepository
         IGenericRepository<Demand> Demands { get; }
         IGenericRepository<Trademark> Trademarks { get; }
         IGenericRepository<Vendor> Vendors { get; }
-        //IGenericRepository<Product> Products { get; }
-        //IGenericRepository<ProductImage> ProductImages { get; }
+        IGenericRepository<Product> Products { get; }
+        IGenericRepository<ProductImage> ProductImages { get; }
         //IGenericRepository<ShoppingCart> ShoppingCarts { get; }
         //IGenericRepository<WishList> WishLists { get; }
         //IGenericRepository<Order> Orders { get; }

@@ -13,6 +13,8 @@ namespace Repository.GenericRepository
         private IGenericRepository<Demand> _demands;
         private IGenericRepository<Trademark> _trademarks;
         private IGenericRepository<Vendor> _vendors;
+        private IGenericRepository<Product> _products;
+        private IGenericRepository<ProductImage> _productImages;
         public UnitOfWork(DatabaseContext context)
         {
             _context = context;
@@ -27,6 +29,10 @@ namespace Repository.GenericRepository
         public IGenericRepository<Trademark> Trademarks => _trademarks ??= new GenericRepository<Trademark>(_context);
 
         public IGenericRepository<Vendor> Vendors => _vendors ??= new GenericRepository<Vendor>(_context);
+
+        public IGenericRepository<Product> Products => _products ??= new GenericRepository<Product>(_context);
+
+        public IGenericRepository<ProductImage> ProductImages => _productImages ??= new GenericRepository<ProductImage>(_context);
 
         public void Dispose()
         {
