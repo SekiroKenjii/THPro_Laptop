@@ -31,8 +31,8 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetProducts()
         {
-            var products = await _unitOfWork.Products.GetAll(
-                includes: new List<string> { "Category", "Condition", "Demand", "Trademark", "Vendor"});
+            var products = await _unitOfWork.Products.GetAll(null, null,
+                new List<string> { "Category", "Condition", "Demand", "Trademark", "Vendor", "ProductImages"});
             var results = _mapper.Map<List<ProductDto>>(products);
             return Ok(results);
         }
@@ -42,8 +42,8 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetProduct(int id)
         {
-            var product = await _unitOfWork.Products.Get(x=>x.Id == id,
-                new List<string> { "Category", "Condition", "Demand", "Trademark", "Vendor" });
+            var product = await _unitOfWork.Products.Get(x => x.Id == id,
+                new List<string> { "Category", "Condition", "Demand", "Trademark", "Vendor", "ProductImages"});
             var result = _mapper.Map<ProductDto>(product);
             return Ok(result);
         }
@@ -75,7 +75,7 @@ namespace API.Controllers
             await _unitOfWork.ProductImages.Insert(productImage);
             await _unitOfWork.Save();
 
-            return CreatedAtAction(nameof(CreatedAtAction), product);
+            return CreatedAtAction(nameof(CreateProduct), GetProduct(product.Id));
         }
 
         [HttpPut("{id:int}")]

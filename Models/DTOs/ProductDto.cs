@@ -81,11 +81,11 @@ namespace Model.DTOs
     public class ProductDto : CreateProductDto
     {
         public int Id { get; set; }
-        public IList<OrderDetail> OrderDetails { get; set; }
-        public IList<ProductImage> ProductImages { get; set; }
-        public IList<WishList> WishLists { get; set; }
-        public IList<ShoppingCart> ShoppingCarts { get; set; }
-        public IList<UserComment> UserComments { get; set; }
-        public IList<ProductRating> ProductRatings { get; set; }
+        public IList<ProductImageDto> ProductImages { get; set; }
+        public CategoryDto Category { get; set; }
+        public ConditionDto Condition { get; set; }
+        public DemandDto Demand { get; set; }
+        public VendorDto Vendor { get; set; }
+        public TrademarkDto Trademark { get; set; }
     }
 }
