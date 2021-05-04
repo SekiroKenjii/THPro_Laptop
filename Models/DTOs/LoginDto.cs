@@ -25,6 +25,7 @@ namespace Model.DTOs
         public string ProfilePicture { get; set; }
         public Gender Gender { get; set; }
         public bool LockoutEnabled { get; set; }
-
+        public string AccessToken { get; set; }
+        public string RefreshToken { get; set; }
     }
 }

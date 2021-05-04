@@ -47,6 +47,7 @@ namespace Repository.Services
             var refreshToken = _token.GenerateRefreshToken();
 
             user.AccessToken = accessToken;
+            user.RefreshToken = refreshToken;
 
             if(loginDto.RememberMe == true)
                 user.RefreshTokenExpiryTime = DateTime.Now.AddDays(15);
@@ -64,15 +65,12 @@ namespace Repository.Services
                 Address = user.Address + ", " + user.City + ", " + user.Country,
                 ProfilePicture = user.ProfilePicture,
                 Gender = user.Gender,
-                LockoutEnabled = user.LockoutEnabled
-            };
-
-            return new
-            {
-                UserInfo = userInfo,
+                LockoutEnabled = user.LockoutEnabled,
                 AccessToken = accessToken,
                 RefreshToken = refreshToken
             };
+
+            return userInfo;
         }
     }
 }
