@@ -4,14 +4,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Model.DTOs
 {
-    public class CreateProductImageDto
+    public class UpdateProductImageDto
+    {
+        public IList<IFormFile> Images { get; set; }
+    }
+    public class CreateProductImageDto : UpdateProductImageDto
     {
         [Required]
         public int ProductId { get; set; }
-
-        public IList<IFormFile> Images { get; set; }
     }
-    public class UpdateProductImage : CreateProductImageDto { }
     public class ProductImageDto : CreateProductImageDto
     {
         public int Id { get; set; }
