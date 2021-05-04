@@ -1,6 +1,5 @@
 ﻿using Data.Entities;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Model.DTOs;
 using System;
 using System.Security.Claims;
@@ -26,9 +25,14 @@ namespace Repository.Services
             if (user == null)
             {
                 user = await _userManager.FindByNameAsync(loginDto.AccountName);
+                if (user == null)
+                    return null;
             }
-            await _signInManager.PasswordSignInAsync(user, loginDto.Password, loginDto.RememberMe, true);
-            
+            var loginResult = await _signInManager.PasswordSignInAsync(user, loginDto.Password, loginDto.RememberMe, true);
+
+            if (!loginResult.Succeeded)
+                return null;
+
             var roles = await _userManager.GetRolesAsync(user);
             var fullName = user.FirstName + " " + user.LastName;
 
@@ -51,12 +55,24 @@ namespace Repository.Services
 
             await _userManager.UpdateAsync(user);
 
-            return new ObjectResult(new
+            var userInfo = new UserInfo()
             {
-                user = user,
-                accessToken = accessToken,
-                refreshToken = refreshToken
-            });
+                GivenName = fullName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Role = string.Join(";", roles),
+                Address = user.Address + ", " + user.City + ", " + user.Country,
+                ProfilePicture = user.ProfilePicture,
+                Gender = user.Gender,
+                LockoutEnabled = user.LockoutEnabled
+            };
+
+            return new
+            {
+                UserInfo = userInfo,
+                AccessToken = accessToken,
+                RefreshToken = refreshToken
+            };
         }
     }
 }
