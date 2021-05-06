@@ -1,11 +1,12 @@
 ﻿using Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Model.DTOs;
+using Repository.Services.Token;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Repository.Services
+namespace Repository.Services.Security
 {
     public class SecurityService : ISecurityService
     {
@@ -34,13 +35,13 @@ namespace Repository.Services
                 return null;
 
             var roles = await _userManager.GetRolesAsync(user);
-            var fullName = user.FirstName + " " + user.LastName;
 
             var claims = new[]
             {
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.GivenName, fullName),
-                new Claim(ClaimTypes.Role, string.Join(";",roles))
+                new Claim("GivenName", user.FirstName + " " + user.LastName),
+                new Claim("Role", string.Join(";", roles)),
+                new Claim("ProfilePicture", user.ProfilePicture)
             };
 
             var accessToken = _token.GenerateAccessToken(claims);
@@ -56,21 +57,10 @@ namespace Repository.Services
 
             await _userManager.UpdateAsync(user);
 
-            var userInfo = new UserInfo()
-            {
-                GivenName = fullName,
-                Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
-                Role = string.Join(";", roles),
-                Address = user.Address + ", " + user.City + ", " + user.Country,
-                ProfilePicture = user.ProfilePicture,
-                Gender = user.Gender,
-                LockoutEnabled = user.LockoutEnabled,
+            return new {
                 AccessToken = accessToken,
                 RefreshToken = refreshToken
             };
-
-            return userInfo;
         }
     }
 }

@@ -1,13 +1,8 @@
-﻿using Data.Entities;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Model.DTOs;
-using Repository.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Repository.Services.Security;
 using System.Threading.Tasks;
 
 namespace API.Controllers

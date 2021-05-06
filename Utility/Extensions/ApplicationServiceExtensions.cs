@@ -10,7 +10,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Model.Configurations;
 using Repository.GenericRepository;
 using Repository.ImageRepository;
-using Repository.Services;
+using Repository.Services.ProductImage;
+using Repository.Services.Security;
+using Repository.Services.Token;
 using Serilog;
 
 namespace Utility.Extensions
@@ -31,6 +33,8 @@ namespace Utility.Extensions
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IImageRepository, ImageRepository>();
+
+            services.AddTransient<IProductImageService, ProductImageService>();
 
             services.AddAutoMapper(typeof(MapperInitilizer));
 

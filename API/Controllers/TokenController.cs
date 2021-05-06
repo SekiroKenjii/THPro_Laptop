@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Model.DTOs;
-using Repository.Services;
+using Repository.Services.Token;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;

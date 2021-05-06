@@ -7,7 +7,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Repository.Services
+namespace Repository.Services.Token
 {
     public class TokenService : ITokenService
     {
