@@ -10,9 +10,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Model.Configurations;
 using Repository.GenericRepository;
 using Repository.ImageRepository;
+using Repository.Services.Cart;
 using Repository.Services.ProductImage;
 using Repository.Services.Security;
 using Repository.Services.Token;
+using Repository.Services.Wishlist;
 using Serilog;
 
 namespace Utility.Extensions
@@ -35,6 +37,8 @@ namespace Utility.Extensions
             services.AddTransient<IImageRepository, ImageRepository>();
 
             services.AddTransient<IProductImageService, ProductImageService>();
+            services.AddTransient<ICartService, CartService>();
+            services.AddTransient<IWishlistService, WishlistService>();
 
             services.AddAutoMapper(typeof(MapperInitilizer));
 

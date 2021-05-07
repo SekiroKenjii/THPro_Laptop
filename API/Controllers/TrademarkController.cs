@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class TrademarkController : ControllerBase
     {
@@ -28,7 +27,7 @@ namespace API.Controllers
             _imageRepository = imageRepository;
         }
 
-        [HttpGet]
+        [HttpGet("api/trademarks")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetTrademarks()
@@ -38,7 +37,7 @@ namespace API.Controllers
             return Ok(results);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("api/trademark/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetTrademark(int id)
@@ -48,7 +47,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("api/trademark/add")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -71,7 +70,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(CreateTrademark), trademark);
         }
 
-        [HttpPut("{id:int}")]
+        [HttpPut("api/trademark/update/{id:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -105,7 +104,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("api/trademark/delete/{id:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

@@ -1,7 +1,6 @@
 ﻿using Model.DTOs;
 using Repository.GenericRepository;
 using Repository.ImageRepository;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -25,7 +24,7 @@ namespace Repository.Services.ProductImage
             if (productFromDb == null || productImageFromDb.Count == 0)
                 return null;
 
-            if (productImageFromDb.Count == 1 && productImageFromDb[0].PublicId == "")
+            if (productImageFromDb.Count == 1 && productImageFromDb[0].PublicId.Contains("_blank_image"))
             {
                 for (int i = 0; i < productImageDto.Images.Count; i++)
                 {
