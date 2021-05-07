@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class ProductImageController : ControllerBase
     {
@@ -20,7 +19,7 @@ namespace API.Controllers
             _logger = logger;
         }
 
-        [HttpPost]
+        [HttpPost("api/productimage/add")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -40,7 +39,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(AddProductImage), result);
         }
 
-        [HttpPut("{productId:int}")]
+        [HttpPut("api/productimage/update/{productId:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -60,7 +59,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("api/productimage/delete/{id:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

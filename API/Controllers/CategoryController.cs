@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]/")]
     [ApiController]
     public class CategoryController : ControllerBase
     {
@@ -25,7 +24,7 @@ namespace API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("api/categories")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetCategories()
@@ -35,7 +34,7 @@ namespace API.Controllers
             return Ok(results);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("api/category/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetCategory(int id)
@@ -45,7 +44,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("api/category/add")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -62,7 +61,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(CreateCategory), category);
         }
 
-        [HttpPut("{id:int}")]
+        [HttpPut("api/category/update/{id:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -85,7 +84,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("api/category/delete/{id:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

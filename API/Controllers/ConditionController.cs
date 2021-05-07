@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class ConditionController : ControllerBase
     {
@@ -25,7 +24,7 @@ namespace API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("api/conditions")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetConditions()
@@ -35,7 +34,7 @@ namespace API.Controllers
             return Ok(results);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("api/condition/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetCondition(int id)
@@ -45,7 +44,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("api/condition/add")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -62,7 +61,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(CreateCondition), condition);
         }
 
-        [HttpPut("{id:int}")]
+        [HttpPut("api/condition/update/{id:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -85,7 +84,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("api/condition/delete/{id:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

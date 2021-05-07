@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]/[action]")]
     [ApiController]
     public class TokenController : ControllerBase
     {
@@ -26,6 +25,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [Route("api/security/token/refresh")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

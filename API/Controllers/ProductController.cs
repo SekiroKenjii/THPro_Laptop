@@ -11,7 +11,6 @@ using Utility.Extensions;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -26,7 +25,7 @@ namespace API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("api/products")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetProducts()
@@ -37,7 +36,7 @@ namespace API.Controllers
             return Ok(results);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("api/product/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetProduct(int id)
@@ -48,7 +47,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("api/product/add")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -78,7 +77,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(CreateProduct), GetProduct(product.Id));
         }
 
-        [HttpPut("{id:int}")]
+        [HttpPut("api/product/update/{id:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -101,7 +100,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("api/product/delete/{id:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
