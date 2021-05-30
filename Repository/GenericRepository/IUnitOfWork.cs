@@ -6,6 +6,7 @@ namespace Repository.GenericRepository
 {
     public interface IUnitOfWork : IDisposable
     {
+        IGenericRepository<AppRole> Roles { get; }
         IGenericRepository<Category> Categories { get; }
         IGenericRepository<Condition> Conditions { get; }
         IGenericRepository<Demand> Demands { get; }

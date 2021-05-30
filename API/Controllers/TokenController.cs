@@ -55,6 +55,7 @@ namespace API.Controllers
             var newRefreshToken = _tokenService.GenerateRefreshToken();
 
             user.AccessToken = newAccessToken;
+            user.RefreshToken = newRefreshToken;
             await _userManager.UpdateAsync(user);
 
             return new ObjectResult(new

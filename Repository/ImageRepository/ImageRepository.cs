@@ -37,7 +37,8 @@ namespace Repository.ImageRepository
             {
                 if(entity == "user")
                 {
-                    if(gender == Gender.Female)
+                    uploadParams.Folder = "upload/img/user/";
+                    if (gender == Gender.Female)
                     {
                         uploadParams.File = new FileDescription(GetBlankUserImage("female"));
                         return await _cloudinary.UploadAsync(uploadParams);

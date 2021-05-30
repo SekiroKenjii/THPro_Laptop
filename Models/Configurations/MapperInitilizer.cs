@@ -24,6 +24,10 @@ namespace Model.Configurations
             CreateMap<ProductImage, CreateProductImageDto>().ReverseMap();
             CreateMap<ShoppingCart, CartDto>().ReverseMap();
             CreateMap<WishList, WishlistDto>().ReverseMap();
+            CreateMap<AppUser, UserDto>().ReverseMap();
+            CreateMap<AppUser, CreateUserDto>().ReverseMap();
+            CreateMap<UpdateUserDto, AppUser>().ReverseMap();
+            CreateMap<AppRole, RoleDto>().ReverseMap();
         }
     }
 }
