@@ -16,7 +16,8 @@ namespace Repository.GenericRepository
         private IGenericRepository<Product> _products;
         private IGenericRepository<ProductImage> _productImages;
         private IGenericRepository<ShoppingCart> _carts;
-        private IGenericRepository<WishList> _wishlist;
+        private IGenericRepository<WishList> _wishlists;
+        private IGenericRepository<AppRole> _roles;
         public UnitOfWork(DatabaseContext context)
         {
             _context = context;
@@ -38,7 +39,9 @@ namespace Repository.GenericRepository
 
         public IGenericRepository<ShoppingCart> ShoppingCarts => _carts ??= new GenericRepository<ShoppingCart>(_context);
 
-        public IGenericRepository<WishList> WishLists => _wishlist ??= new GenericRepository<WishList>(_context);
+        public IGenericRepository<WishList> WishLists => _wishlists ??= new GenericRepository<WishList>(_context);
+
+        public IGenericRepository<AppRole> Roles => _roles ??= new GenericRepository<AppRole>(_context);
 
         public void Dispose()
         {

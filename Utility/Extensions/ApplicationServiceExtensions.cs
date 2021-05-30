@@ -12,8 +12,10 @@ using Repository.GenericRepository;
 using Repository.ImageRepository;
 using Repository.Services.Cart;
 using Repository.Services.ProductImage;
+using Repository.Services.Role;
 using Repository.Services.Security;
 using Repository.Services.Token;
+using Repository.Services.User;
 using Repository.Services.Wishlist;
 using Serilog;
 
@@ -37,6 +39,8 @@ namespace Utility.Extensions
             services.AddTransient<IImageRepository, ImageRepository>();
 
             services.AddTransient<IProductImageService, ProductImageService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<ICartService, CartService>();
             services.AddTransient<IWishlistService, WishlistService>();
 

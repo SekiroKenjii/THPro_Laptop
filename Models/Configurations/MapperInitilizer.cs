@@ -27,6 +27,7 @@ namespace Model.Configurations
             CreateMap<AppUser, UserDto>().ReverseMap();
             CreateMap<AppUser, CreateUserDto>().ReverseMap();
             CreateMap<UpdateUserDto, AppUser>().ReverseMap();
+            CreateMap<AppRole, RoleDto>().ReverseMap();
         }
     }
 }
