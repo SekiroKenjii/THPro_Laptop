@@ -39,6 +39,7 @@ namespace Repository.Services.Security
             var claims = new[]
             {
                 new Claim(ClaimTypes.Email, user.Email),
+                new Claim("UserId", user.Id.ToString()),
                 new Claim("GivenName", user.FirstName + " " + user.LastName),
                 new Claim("Role", string.Join(";", roles)),
                 new Claim("ProfilePicture", user.ProfilePicture)
@@ -50,10 +51,17 @@ namespace Repository.Services.Security
             user.AccessToken = accessToken;
             user.RefreshToken = refreshToken;
 
-            if(loginDto.RememberMe == true)
-                user.RefreshTokenExpiryTime = DateTime.Now.AddDays(15);
+            if (!loginDto.IsUsingApp)
+            {
+                if (loginDto.RememberMe == true)
+                    user.RefreshTokenExpiryTime = DateTime.Now.AddDays(15);
+                else
+                    user.RefreshTokenExpiryTime = DateTime.Now.AddDays(1);
+            }
             else
-                user.RefreshTokenExpiryTime = DateTime.Now.AddDays(1);
+            {
+                user.RefreshTokenExpiryTime = DateTime.Now.AddDays(365);
+            }
 
             await _userManager.UpdateAsync(user);
 
