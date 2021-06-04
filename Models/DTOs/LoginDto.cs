@@ -14,6 +14,6 @@ namespace Model.DTOs
         public bool RememberMe { get; set; }
 
         [Required]
-        public bool IsUsingApp { get; set; }
+        public bool IsUsingMobileApp { get; set; }
     }
 }

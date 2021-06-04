@@ -45,29 +45,38 @@ namespace Repository.Services.Security
                 new Claim("ProfilePicture", user.ProfilePicture)
             };
 
-            var accessToken = _token.GenerateAccessToken(claims);
-            var refreshToken = _token.GenerateRefreshToken();
-
-            user.AccessToken = accessToken;
-            user.RefreshToken = refreshToken;
-
-            if (!loginDto.IsUsingApp)
+            if (!loginDto.IsUsingMobileApp)
             {
+                var accessToken = _token.GenerateAccessToken(claims);
+                var refreshToken = _token.GenerateRefreshToken();
+
+                user.AccessToken = accessToken;
+                user.RefreshToken = refreshToken;
+
                 if (loginDto.RememberMe == true)
                     user.RefreshTokenExpiryTime = DateTime.Now.AddDays(15);
                 else
                     user.RefreshTokenExpiryTime = DateTime.Now.AddDays(1);
+
+                await _userManager.UpdateAsync(user);
+
+                return new
+                {
+                    AccessToken = accessToken,
+                    RefreshToken = refreshToken
+                };
             }
-            else
-            {
-                user.RefreshTokenExpiryTime = DateTime.Now.AddDays(365);
-            }
+
+            var mobileAccessToken = _token.GenerateMobileAccessToken(claims);
+
+            user.AccessToken = mobileAccessToken;
+
+            user.RefreshTokenExpiryTime = DateTime.Now.AddDays(365);
 
             await _userManager.UpdateAsync(user);
 
             return new {
-                AccessToken = accessToken,
-                RefreshToken = refreshToken
+                AccessToken = mobileAccessToken
             };
         }
     }
