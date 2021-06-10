@@ -4,14 +4,16 @@ using Data.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210607063741_updateProductTable")]
+    partial class updateProductTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +49,7 @@ namespace Data.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "0515af77-b61c-4109-ba34-5f63747ae825",
+                            ConcurrencyStamp = "9d1f2689-3d18-45c6-a683-e7156b6b6654",
                             Description = "Quản trị viên",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -67,10 +69,12 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("City")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -89,6 +93,7 @@ namespace Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -98,6 +103,7 @@ namespace Data.Migrations
                         .HasDefaultValue(2);
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -119,6 +125,7 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -160,7 +167,7 @@ namespace Data.Migrations
                             AccessFailedCount = 0,
                             Address = "KTX Khu B, Đại Học Quốc Gia TPHCM",
                             City = "Thành phố Hồ Chí Minh",
-                            ConcurrencyStamp = "96a806eb-7349-4f31-9be0-9354ecebd407",
+                            ConcurrencyStamp = "d898bda6-6d0d-4c3d-a313-64259a5ca76e",
                             Country = "Việt Nam",
                             Email = "trungthuongvo109@gmail.com",
                             EmailConfirmed = true,
@@ -170,7 +177,7 @@ namespace Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TRUNGTHUONGVO109@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAECitiUydWrzKGPGurwqyw46bkbHCoJbUa6Tjzn16l9IAMyKhud5ew8E0iB9CqSX7ZA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBxonqyjVigWEfBnPPS6jRk3f7B6rqX3iDNw16WrCAEjHByHgNAaq9QcXEkodI7o+A==",
                             PhoneNumber = "0375274267",
                             PhoneNumberConfirmed = true,
                             ProfilePicture = "https://res.cloudinary.com/dglgzh0aj/image/upload/v1617718785/upload/img/user/IMG_20200910_134644_flstzn.jpg",

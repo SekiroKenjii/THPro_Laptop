@@ -26,17 +26,17 @@ namespace Data.Configurations
             
 
             builder.Property(x => x.Name).IsRequired().HasMaxLength(50);
-            builder.Property(x => x.Cpu).IsRequired().HasMaxLength(50);
-            builder.Property(x => x.Screen).IsRequired().HasMaxLength(50);
-            builder.Property(x => x.Ram).IsRequired().HasMaxLength(50);
-            builder.Property(x => x.Gpu).IsRequired().HasMaxLength(50);
-            builder.Property(x => x.Storage).IsRequired().HasMaxLength(50);
-            builder.Property(x => x.Pin).IsRequired().HasMaxLength(10);
-            builder.Property(x => x.Connection).IsRequired().HasMaxLength(200);
-            builder.Property(x => x.Weight).IsRequired().HasMaxLength(10);
-            builder.Property(x => x.OS).IsRequired().HasMaxLength(20);
-            builder.Property(x => x.Color).IsRequired().HasMaxLength(10);
-            builder.Property(x => x.Warranty).IsRequired().HasMaxLength(100);
+            builder.Property(x => x.Cpu).IsRequired(false).HasMaxLength(50);
+            builder.Property(x => x.Screen).IsRequired(false).HasMaxLength(50);
+            builder.Property(x => x.Ram).IsRequired(false).HasMaxLength(50);
+            builder.Property(x => x.Gpu).IsRequired(false).HasMaxLength(50);
+            builder.Property(x => x.Storage).IsRequired(false).HasMaxLength(50);
+            builder.Property(x => x.Pin).IsRequired(false).HasMaxLength(10);
+            builder.Property(x => x.Connection).IsRequired(false).HasMaxLength(200);
+            builder.Property(x => x.Weight).IsRequired(false).HasMaxLength(10);
+            builder.Property(x => x.OS).IsRequired(false).HasMaxLength(20);
+            builder.Property(x => x.Color).IsRequired(false).HasMaxLength(10);
+            builder.Property(x => x.Warranty).IsRequired(false).HasMaxLength(100);
             builder.Property(x => x.Price).IsRequired().HasDefaultValue(0.0);
             builder.Property(x => x.UnitsInStock).IsRequired().HasDefaultValue(0);
             builder.Property(x => x.UnitsOnOrder).IsRequired().HasDefaultValue(0);
