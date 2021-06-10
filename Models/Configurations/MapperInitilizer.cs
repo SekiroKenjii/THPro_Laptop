@@ -19,6 +19,7 @@ namespace Model.Configurations
             CreateMap<Vendor, VendorDto>().ReverseMap();
             CreateMap<Vendor, CreateVendorDto>().ReverseMap();
             CreateMap<Product, ProductDto>().ReverseMap();
+            CreateMap<Product, UpdateProductDto>().ReverseMap();
             CreateMap<Product, CreateProductDto>().ReverseMap();
             CreateMap<ProductImage, ProductImageDto>().ReverseMap();
             CreateMap<ProductImage, CreateProductImageDto>().ReverseMap();

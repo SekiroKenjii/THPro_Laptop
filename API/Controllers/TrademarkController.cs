@@ -121,7 +121,7 @@ namespace API.Controllers
                 _logger.LogError($"Invalid DLETE attempt in {nameof(DeleteTrademark)}");
                 return BadRequest("Submitted data is invalid");
             }
-            await _unitOfWork.Demands.Delete(id);
+            await _unitOfWork.Trademarks.Delete(id);
             await _imageRepository.DeleteImage(trademark.PublicId);
             await _unitOfWork.Save();
             return NoContent();

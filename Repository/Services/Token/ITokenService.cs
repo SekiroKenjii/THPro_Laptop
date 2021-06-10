@@ -6,6 +6,7 @@ namespace Repository.Services.Token
     public interface ITokenService
     {
         string GenerateAccessToken(IEnumerable<Claim> claims);
+        string GenerateMobileAccessToken(IEnumerable<Claim> claims);
         string GenerateRefreshToken();
         ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
     }

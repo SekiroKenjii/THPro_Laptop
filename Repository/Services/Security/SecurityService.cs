@@ -39,27 +39,44 @@ namespace Repository.Services.Security
             var claims = new[]
             {
                 new Claim(ClaimTypes.Email, user.Email),
+                new Claim("UserId", user.Id.ToString()),
                 new Claim("GivenName", user.FirstName + " " + user.LastName),
                 new Claim("Role", string.Join(";", roles)),
                 new Claim("ProfilePicture", user.ProfilePicture)
             };
 
-            var accessToken = _token.GenerateAccessToken(claims);
-            var refreshToken = _token.GenerateRefreshToken();
+            if (!loginDto.IsUsingMobileApp)
+            {
+                var accessToken = _token.GenerateAccessToken(claims);
+                var refreshToken = _token.GenerateRefreshToken();
 
-            user.AccessToken = accessToken;
-            user.RefreshToken = refreshToken;
+                user.AccessToken = accessToken;
+                user.RefreshToken = refreshToken;
 
-            if(loginDto.RememberMe == true)
-                user.RefreshTokenExpiryTime = DateTime.Now.AddDays(15);
-            else
-                user.RefreshTokenExpiryTime = DateTime.Now.AddDays(1);
+                if (loginDto.RememberMe == true)
+                    user.RefreshTokenExpiryTime = DateTime.Now.AddDays(15);
+                else
+                    user.RefreshTokenExpiryTime = DateTime.Now.AddDays(1);
+
+                await _userManager.UpdateAsync(user);
+
+                return new
+                {
+                    AccessToken = accessToken,
+                    RefreshToken = refreshToken
+                };
+            }
+
+            var mobileAccessToken = _token.GenerateMobileAccessToken(claims);
+
+            user.AccessToken = mobileAccessToken;
+
+            user.RefreshTokenExpiryTime = DateTime.Now.AddDays(365);
 
             await _userManager.UpdateAsync(user);
 
             return new {
-                AccessToken = accessToken,
-                RefreshToken = refreshToken
+                AccessToken = mobileAccessToken
             };
         }
     }

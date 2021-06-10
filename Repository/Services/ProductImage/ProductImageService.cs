@@ -24,12 +24,13 @@ namespace Repository.Services.ProductImage
             if (productFromDb == null || productImageFromDb.Count == 0)
                 return null;
 
-            if (productImageFromDb.Count == 1 && productImageFromDb[0].PublicId.Contains("_blank_image"))
+            if (productImageFromDb.Count == 1 && productImageFromDb[0].Caption.Contains("_blank_image"))
             {
+                await _unitOfWork.ProductImages.Delete(productImageFromDb[0].Id);
                 for (int i = 0; i < productImageDto.Images.Count; i++)
                 {
                     var uploadResult = await _imageRepository.UploadImage("product", productImageDto.Images[i]);
-                    int sortOrder = productImageFromDb[0].SortOrder + i;
+                    int sortOrder = 1 + i;
                     var productImage = new Data.Entities.ProductImage()
                     {
                         ImageUrl = uploadResult.SecureUrl.ToString(),
@@ -40,7 +41,6 @@ namespace Repository.Services.ProductImage
                     };
                     await _unitOfWork.ProductImages.Insert(productImage);
                 }
-                await _unitOfWork.ProductImages.Delete(productImageFromDb[0].Id);
                 await _unitOfWork.Save();
                 return await _unitOfWork.ProductImages.GetAll(x => x.ProductId == productImageDto.ProductId);
             }
@@ -73,7 +73,7 @@ namespace Repository.Services.ProductImage
             {
                 foreach (var item in productImageFromDb)
                 {
-                    if (productImageDto.Images[i].Name == item.Caption)
+                    if (productImageDto.Images[i].FileName == item.SortOrder.ToString())
                     {
                         await _imageRepository.DeleteImage(item.PublicId);
                         var uploadResult = await _imageRepository.UploadImage("product", productImageDto.Images[i]);

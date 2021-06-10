@@ -1,5 +1,4 @@
-﻿using Data.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Model.DTOs
 {
@@ -13,5 +12,8 @@ namespace Model.DTOs
         public string Password { get; set; }
 
         public bool RememberMe { get; set; }
+
+        [Required]
+        public bool IsUsingMobileApp { get; set; }
     }
 }

@@ -35,9 +35,9 @@ namespace Repository.Services.User
 
             user.LockoutEnd = DateTime.Now;
 
-            var uploadResult = await _imageRepository.UploadImage("user", userDto.Image, userDto.Gender);
+            var uploadResult = await _imageRepository.UploadImage("user", null, userDto.Gender);
 
-            if(uploadResult.Error != null)
+            if (uploadResult.Error != null)
                 throw new Exception(uploadResult.Error.Message);
 
             user.ProfilePicture = uploadResult.SecureUrl.ToString();

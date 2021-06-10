@@ -12,15 +12,27 @@ namespace Model.DTOs
 
         [Required]
         public int VendorId { get; set; }
+
         [Required]
         public int CategoryId { get; set; }
+
         [Required]
         public int ConditionId { get; set; }
+
         [Required]
         public int DemandId { get; set; }
+
         [Required]
         public int TrademarkId { get; set; }
 
+        [Required]
+        public int UnitsInStock { get; set; }
+
+        [Required]
+        public bool Discontinued { get; set; }
+    }
+    public class UpdateProductDto : CreateProductDto 
+    {
         [Required]
         [StringLength(maximumLength: 50, ErrorMessage = "CPU field is too long")]
         public string Cpu { get; set; }
@@ -67,18 +79,13 @@ namespace Model.DTOs
 
         [Required]
         public double Price { get; set; }
-        [Required]
-        public int UnitsInStock { get; set; }
+
         [Required]
         public int UnitsOnOrder { get; set; }
 
         public string Description { get; set; }
-
-        [Required]
-        public bool Discontinued { get; set; }
     }
-    public class UpdateProductDto : CreateProductDto { }
-    public class ProductDto : CreateProductDto
+    public class ProductDto : UpdateProductDto
     {
         public int Id { get; set; }
         public IList<ProductImageDto> ProductImages { get; set; }

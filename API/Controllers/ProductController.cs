@@ -74,7 +74,10 @@ namespace API.Controllers
             await _unitOfWork.ProductImages.Insert(productImage);
             await _unitOfWork.Save();
 
-            return CreatedAtAction(nameof(CreateProduct), GetProduct(product.Id));
+            var createdProduct = await _unitOfWork.Products.Get(x => x.Id == product.Id,
+                new List<string> { "Category", "Condition", "Demand", "Trademark", "Vendor", "ProductImages" });
+
+            return CreatedAtAction(nameof(CreateProduct), _mapper.Map<ProductDto>(createdProduct));
         }
 
         [HttpPut("api/product/update/{id:int}")]

@@ -34,6 +34,23 @@ namespace Repository.Services.Token
             return new JwtSecurityTokenHandler().WriteToken(tokeOptions);
         }
 
+        public string GenerateMobileAccessToken(IEnumerable<Claim> claims)
+        {
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
+
+            var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+
+            var tokeOptions = new JwtSecurityToken(
+                issuer: _config["Tokens:Issuer"],
+                audience: _config["Tokens:Issuer"],
+                claims: claims,
+                expires: DateTime.Now.AddDays(365),
+                signingCredentials: signinCredentials
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+        }
+
         public string GenerateRefreshToken()
         {
             var randomNumber = new byte[32];

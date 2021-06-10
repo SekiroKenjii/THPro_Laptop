@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Model.DTOs;
 using Repository.Services.Role;
+using System;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -45,6 +46,46 @@ namespace API.Controllers
                 return BadRequest("Submitted data is invalid");
             }
             return CreatedAtAction(nameof(AddRole), result);
+        }
+
+        [HttpPut("api/role/update/{roleId}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UpdateRole(Guid roleId, [FromBody] UpdateRoleDto roleDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateRole)}");
+                return BadRequest(ModelState);
+            }
+            var result = await _roleService.UpdateRole(roleId, roleDto);
+            if (result == false)
+            {
+                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateRole)}");
+                return BadRequest("Submitted data is invalid");
+            }
+            return NoContent();
+        }
+
+        [HttpDelete("api/role/delete/{roleId}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteRole(Guid roleId)
+        {
+            if (!ModelState.IsValid)
+            {
+                _logger.LogError($"Invalid DELETE attempt in {nameof(DeleteRole)}");
+                return BadRequest(ModelState);
+            }
+            var result = await _roleService.DeleteRole(roleId);
+            if (result == false)
+            {
+                _logger.LogError($"Invalid DELETE attempt in {nameof(DeleteRole)}");
+                return BadRequest("Submitted data is invalid");
+            }
+            return NoContent();
         }
     }
 }
