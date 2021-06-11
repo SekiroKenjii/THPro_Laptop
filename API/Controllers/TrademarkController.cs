@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -8,6 +9,7 @@ using Repository.GenericRepository;
 using Repository.ImageRepository;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Utility.Extensions;
 
 namespace API.Controllers
 {
@@ -47,6 +49,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = ApplicationStaticExtensions.AdminRole + "," + ApplicationStaticExtensions.WarehouseRole)]
         [HttpPost("api/trademark/add")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -70,6 +73,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(CreateTrademark), trademark);
         }
 
+        [Authorize(Roles = ApplicationStaticExtensions.AdminRole + "," + ApplicationStaticExtensions.WarehouseRole)]
         [HttpPut("api/trademark/update/{id:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -104,6 +108,7 @@ namespace API.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = ApplicationStaticExtensions.AdminRole + "," + ApplicationStaticExtensions.WarehouseRole)]
         [HttpDelete("api/trademark/delete/{id:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

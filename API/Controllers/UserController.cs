@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Model.DTOs;
 using Repository.Services.User;
 using System;
 using System.Threading.Tasks;
+using Utility.Extensions;
 
 namespace API.Controllers
 {
@@ -19,6 +21,27 @@ namespace API.Controllers
             _logger = logger;
         }
 
+        [HttpPost("api/user/register")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Register([FromBody] RegisterUserDto registerUserDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                _logger.LogError($"Invalid POST attempt in {nameof(Register)}");
+                return BadRequest(ModelState);
+            }
+            var result = await _userService.Register(registerUserDto);
+            if(result == null)
+            {
+                _logger.LogError($"Invalid POST attempt in {nameof(Register)}");
+                return BadRequest("Submitted data is invalid");
+            }
+            return CreatedAtAction(nameof(Register), result);
+        }
+
+        [Authorize(Roles = ApplicationStaticExtensions.AdminRole)]
         [HttpGet("api/user/inrole/{role}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -53,11 +76,12 @@ namespace API.Controllers
             return Ok(user);
         }
 
+        [Authorize(Roles = ApplicationStaticExtensions.AdminRole)]
         [HttpPost("api/user/add")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> AddUser([FromForm] CreateUserDto userDto)
+        public async Task<IActionResult> AddUser([FromBody] CreateUserDto userDto)
         {
             if (!ModelState.IsValid)
             {
@@ -93,7 +117,8 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpPost("api/user/lock/{userId}")]
+        [Authorize(Roles = ApplicationStaticExtensions.AdminRole)]
+        [HttpPut("api/user/lock/{userId}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -113,7 +138,8 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpPost("api/user/unlock/{userId}")]
+        [Authorize(Roles = ApplicationStaticExtensions.AdminRole)]
+        [HttpPut("api/user/unlock/{userId}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

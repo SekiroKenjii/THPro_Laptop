@@ -11,6 +11,7 @@ using Model.Configurations;
 using Repository.GenericRepository;
 using Repository.ImageRepository;
 using Repository.Services.Cart;
+using Repository.Services.Order;
 using Repository.Services.ProductImage;
 using Repository.Services.Role;
 using Repository.Services.Security;
@@ -43,6 +44,7 @@ namespace Utility.Extensions
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<ICartService, CartService>();
             services.AddTransient<IWishlistService, WishlistService>();
+            services.AddTransient<IOrderService, OrderService>();
 
             services.AddAutoMapper(typeof(MapperInitilizer));
 

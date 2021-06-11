@@ -32,8 +32,8 @@
 
         public const string AdminRole = "Admin";
         public const string EmployeeRole = "Employee";
-        public const string WarehouseRole = "Warehouse Staff";
-        public const string CustomerOfficerRole = "Customer Officer";
+        public const string WarehouseRole = "Warehouse Staff;Employee";
+        public const string CustomerOfficerRole = "Customer Officer;Employee";
         public const string CustomerRole = "Customer";
     }
 }

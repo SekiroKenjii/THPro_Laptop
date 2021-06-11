@@ -16,8 +16,8 @@ namespace Repository.GenericRepository
         IGenericRepository<ProductImage> ProductImages { get; }
         IGenericRepository<ShoppingCart> ShoppingCarts { get; }
         IGenericRepository<WishList> WishLists { get; }
-        //IGenericRepository<Order> Orders { get; }
-        //IGenericRepository<OrderDetail> OrderDetails { get; }
+        IGenericRepository<Order> Orders { get; }
+        IGenericRepository<OrderDetail> OrderDetails { get; }
         //IGenericRepository<ProductRating> ProductRatings { get; }
         //IGenericRepository<UserComment> UserComments { get; }
         //IGenericRepository<ReplyUserComment> ReplyUserComments { get; }
