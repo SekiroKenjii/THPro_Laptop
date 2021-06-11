@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Model.DTOs;
 using Repository.Services.Role;
 using System;
 using System.Threading.Tasks;
+using Utility.Extensions;
 
 namespace API.Controllers
 {
@@ -19,6 +21,7 @@ namespace API.Controllers
             _logger = logger;
         }
 
+        [Authorize(Roles = ApplicationStaticExtensions.AdminRole)]
         [HttpGet("api/roles")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -28,6 +31,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        //[Authorize(Roles = ApplicationStaticExtensions.AdminRole)]
         [HttpPost("api/role/add")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -48,6 +52,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(AddRole), result);
         }
 
+        [Authorize(Roles = ApplicationStaticExtensions.AdminRole)]
         [HttpPut("api/role/update/{roleId}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -68,6 +73,7 @@ namespace API.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = ApplicationStaticExtensions.AdminRole)]
         [HttpDelete("api/role/delete/{roleId}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

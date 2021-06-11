@@ -1,9 +1,26 @@
-﻿using Data.Enums;
+﻿using Data.Entities;
+using Data.Enums;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
 namespace Model.DTOs
 {
+    public class RegisterUserDto
+    {
+        [Required]
+        [StringLength(maximumLength: 50, ErrorMessage = "Username is too long")]
+        public string Username { get; set; }
+
+        [Required]
+        [StringLength(maximumLength: 100, ErrorMessage = "Email address is too long")]
+        public string Email { get; set; }
+
+        [Required]
+        public Gender Gender { get; set; }
+
+        [Required]
+        public string Password { get; set; }
+    }
     public class CreateUserDto
     {
         [Required]
@@ -22,10 +39,8 @@ namespace Model.DTOs
 
         public string Password { get; set; }
 
-        [Required]
         public string Role { get; set; }
 
-        [Required]
         public string SubRole { get; set; }
     }
     public class UpdateUserDto : CreateUserDto
@@ -53,5 +68,11 @@ namespace Model.DTOs
     {
         public string ProfilePicture { get; set; }
         public bool LockoutEnabled { get; set; }
+    }
+
+    public class UserVM
+    {
+        public AppUser User { get; set; }
+        public string Roles { get; set; }
     }
 }

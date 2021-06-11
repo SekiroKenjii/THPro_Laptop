@@ -43,6 +43,12 @@ namespace Repository.Services.User
             user.ProfilePicture = uploadResult.SecureUrl.ToString();
             user.PublicId = uploadResult.PublicId;
 
+            user.FirstName = "default";
+            user.LastName = "default";
+            user.Address = "default";
+            user.City = "default";
+            user.Country = "default";
+
             var createUser = await _userManager.CreateAsync(user, userDto.Password);
 
             if (!createUser.Succeeded)
@@ -106,6 +112,39 @@ namespace Repository.Services.User
             return true;
         }
 
+        public async Task<UserDto> Register(RegisterUserDto registerUserDto)
+        {
+            var customer = _mapper.Map<AppUser>(registerUserDto);
+
+            var uploadResult = await _imageRepository.UploadImage("user", null, registerUserDto.Gender);
+
+            if (uploadResult.Error != null)
+                throw new Exception(uploadResult.Error.Message);
+
+            customer.ProfilePicture = uploadResult.SecureUrl.ToString();
+            customer.PublicId = uploadResult.PublicId;
+            customer.Gender = registerUserDto.Gender;
+
+            customer.FirstName = "default";
+            customer.LastName = "default";
+            customer.Address = "default";
+            customer.City = "default";
+            customer.Country = "default";
+            customer.PhoneNumber = "default";
+
+            var createCustomer = await _userManager.CreateAsync(customer, registerUserDto.Password);
+
+            if (!createCustomer.Succeeded)
+            {
+                await _imageRepository.DeleteImage(customer.PublicId);
+                return null;
+            }
+
+            await _userManager.AddToRoleAsync(customer, "Customer");
+
+            return _mapper.Map<UserDto>(customer);
+        }
+
         public async Task<bool> UnlockUser(Guid userId)
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
@@ -166,24 +205,31 @@ namespace Repository.Services.User
                 user.PublicId = uploadResult.PublicId;
             }
 
-            await _userManager.UpdateAsync(user);
+            var result = await _userManager.UpdateAsync(user);
+
+            if(!result.Succeeded)
+                return false;
+
             return true;
         }
 
-        public async Task<IList<UserDto>> UsersInRole(string role)
+        public async Task<IList<UserVM>> UsersInRole(string role)
         {
             var users = await _userManager.GetUsersInRoleAsync(role);
 
             if (users.Count == 0)
                 return null;
 
-            IList<UserDto> result = new List<UserDto>();
+            IList<UserVM> result = new List<UserVM>();
 
             foreach (var user in users)
             {
-                var map = _mapper.Map<UserDto>(user);
-                map.Role = string.Join(";", _userManager.GetRolesAsync(user));
-                result.Add(map);
+                var roles = await _userManager.GetRolesAsync(user);
+                result.Add(new UserVM
+                {
+                    User = user,
+                    Roles = string.Join(", ", roles)
+                });
             }
 
             return result;

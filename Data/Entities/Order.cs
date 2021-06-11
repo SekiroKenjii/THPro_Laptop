@@ -20,8 +20,6 @@ namespace Data.Entities
         public string PaymentStatus { get; set; }
         public string TransactionId { get; set; }
         public string ShipAddress { get; set; }
-        public string ShipCity { get; set; }
-        public string ShipCountry { get; set; }
         public string CustomerComment { get; set; }
 
         public virtual IEnumerable<OrderDetail> OrderDetails { get; set; }

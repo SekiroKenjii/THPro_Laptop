@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Model.DTOs;
 using Repository.Services.ProductImage;
 using System.Threading.Tasks;
+using Utility.Extensions;
 
 namespace API.Controllers
 {
@@ -19,6 +21,7 @@ namespace API.Controllers
             _logger = logger;
         }
 
+        [Authorize(Roles = ApplicationStaticExtensions.AdminRole + "," + ApplicationStaticExtensions.WarehouseRole)]
         [HttpPost("api/productimage/add")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -39,6 +42,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(AddProductImage), result);
         }
 
+        [Authorize(Roles = ApplicationStaticExtensions.AdminRole + "," + ApplicationStaticExtensions.WarehouseRole)]
         [HttpPut("api/productimage/update/{productId:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -59,6 +63,7 @@ namespace API.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = ApplicationStaticExtensions.AdminRole + "," + ApplicationStaticExtensions.WarehouseRole)]
         [HttpDelete("api/productimage/delete/{id:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

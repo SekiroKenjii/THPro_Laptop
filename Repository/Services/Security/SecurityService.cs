@@ -41,7 +41,7 @@ namespace Repository.Services.Security
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim("UserId", user.Id.ToString()),
                 new Claim("GivenName", user.FirstName + " " + user.LastName),
-                new Claim("Role", string.Join(";", roles)),
+                new Claim(ClaimTypes.Role, string.Join(";", roles)),
                 new Claim("ProfilePicture", user.ProfilePicture)
             };
 
