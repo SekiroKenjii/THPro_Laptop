@@ -24,11 +24,9 @@ namespace Data.Configurations
             builder.Property(x => x.OrderTotal).IsRequired();
             builder.Property(x => x.PaymentStatus).IsRequired().HasMaxLength(20);
             builder.Property(x => x.OrderStatus).IsRequired().HasMaxLength(20);
-            builder.Property(x => x.TransactionId).IsRequired().HasMaxLength(50);
+            builder.Property(x => x.TransactionId).IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.ShipAddress).IsRequired().HasMaxLength(100);
-            builder.Property(x => x.ShipCity).IsRequired().HasMaxLength(50);
-            builder.Property(x => x.ShipCountry).IsRequired().HasMaxLength(50);
-            builder.Property(x => x.CustomerComment).IsRequired().HasMaxLength(256);
+            builder.Property(x => x.CustomerComment).IsRequired(false);
         }
     }
 }

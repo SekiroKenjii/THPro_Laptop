@@ -11,15 +11,15 @@ namespace Data.Configurations
         {
             builder.ToTable("AppUsers");
 
-            builder.Property(x => x.FirstName).IsRequired().HasMaxLength(20);
-            builder.Property(x => x.LastName).IsRequired().HasMaxLength(50);
-            builder.Property(x => x.Address).IsRequired().HasMaxLength(200);
-            builder.Property(x => x.City).IsRequired().HasMaxLength(100);
+            builder.Property(x => x.FirstName).IsRequired(false).HasMaxLength(20);
+            builder.Property(x => x.LastName).IsRequired(false).HasMaxLength(50);
+            builder.Property(x => x.Address).IsRequired(false).HasMaxLength(200);
+            builder.Property(x => x.City).IsRequired(false).HasMaxLength(100);
             builder.Property(x => x.Country).HasMaxLength(20);
             builder.Property(x => x.ProfilePicture).IsRequired(false).HasMaxLength(200);
             builder.Property(x => x.PublicId).IsRequired(false).HasMaxLength(200);
             builder.Property(x => x.Gender).HasDefaultValue(Gender.Null);
-            builder.Property(x => x.PhoneNumber).IsRequired().HasMaxLength(20);
+            builder.Property(x => x.PhoneNumber).IsRequired(false).HasMaxLength(20);
             builder.Property(x => x.NormalizedEmail).HasMaxLength(100);
             builder.Property(x => x.Email).HasMaxLength(100);
             builder.Property(x => x.UserName).HasMaxLength(50);

@@ -47,7 +47,7 @@ namespace Data.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "0343f548-fbf2-4be8-8b41-5c436b65cb5f",
+                            ConcurrencyStamp = "dc6adf0e-1796-4719-b365-87589452876a",
                             Description = "Quản trị viên",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -67,12 +67,10 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -91,7 +89,6 @@ namespace Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -101,7 +98,6 @@ namespace Data.Migrations
                         .HasDefaultValue(2);
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -123,7 +119,6 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -137,6 +132,9 @@ namespace Data.Migrations
                     b.Property<string>("PublicId")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("RefreshTokenExpiryTime")
                         .HasColumnType("datetime2");
@@ -162,7 +160,7 @@ namespace Data.Migrations
                             AccessFailedCount = 0,
                             Address = "KTX Khu B, Đại Học Quốc Gia TPHCM",
                             City = "Thành phố Hồ Chí Minh",
-                            ConcurrencyStamp = "d05ff96c-57af-43ac-a358-15d132302ba2",
+                            ConcurrencyStamp = "ab3ca074-95e1-4174-8ef7-e002c4a0fbbc",
                             Country = "Việt Nam",
                             Email = "trungthuongvo109@gmail.com",
                             EmailConfirmed = true,
@@ -172,7 +170,7 @@ namespace Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TRUNGTHUONGVO109@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMtlejegAiWyz9MESGMCYlwA5u2zIZa/CDi0YEqa87PyKz23Jd/PVgge8oBaQHwyoQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAH5HejdMYgQNbEBc+940/tAa7k4tdzVz32sJOwwMAF+sF9pPlPtqUMzrLo86rfkuA==",
                             PhoneNumber = "0375274267",
                             PhoneNumberConfirmed = true,
                             ProfilePicture = "https://res.cloudinary.com/dglgzh0aj/image/upload/v1617718785/upload/img/user/IMG_20200910_134644_flstzn.jpg",
@@ -259,9 +257,7 @@ namespace Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CustomerComment")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
@@ -305,18 +301,7 @@ namespace Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("ShipCity")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("ShipCountry")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<string>("TransactionId")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -367,7 +352,6 @@ namespace Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Color")
-                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
@@ -375,12 +359,10 @@ namespace Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Connection")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Cpu")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -394,7 +376,6 @@ namespace Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Gpu")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -404,12 +385,10 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("OS")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Pin")
-                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
@@ -419,17 +398,14 @@ namespace Data.Migrations
                         .HasDefaultValue(0.0);
 
                     b.Property<string>("Ram")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Screen")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Storage")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -450,12 +426,10 @@ namespace Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Warranty")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Weight")
-                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 

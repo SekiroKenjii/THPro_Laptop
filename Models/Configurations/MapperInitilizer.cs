@@ -18,6 +18,22 @@ namespace Model.Configurations
             CreateMap<Trademark, CreateTrademarkDto>().ReverseMap();
             CreateMap<Vendor, VendorDto>().ReverseMap();
             CreateMap<Vendor, CreateVendorDto>().ReverseMap();
+            CreateMap<Product, ProductDto>().ReverseMap();
+            CreateMap<Product, UpdateProductDto>().ReverseMap();
+            CreateMap<Product, CreateProductDto>().ReverseMap();
+            CreateMap<ProductImage, ProductImageDto>().ReverseMap();
+            CreateMap<ProductImage, CreateProductImageDto>().ReverseMap();
+            CreateMap<ShoppingCart, CartDto>().ReverseMap();
+            CreateMap<WishList, WishlistDto>().ReverseMap();
+            CreateMap<AppUser, UserDto>().ReverseMap();
+            CreateMap<AppUser, CreateUserDto>().ReverseMap();
+            CreateMap<AppUser, RegisterUserDto>().ReverseMap();
+            CreateMap<UpdateUserDto, AppUser>().ReverseMap();
+            CreateMap<AppRole, RoleDto>().ReverseMap();
+            CreateMap<Order, OrderDto>().ReverseMap();
+            CreateMap<Order, CreateOrderDto>().ReverseMap();
+            CreateMap<OrderDetail, OrderDetailsDto>().ReverseMap();
+            CreateMap<ShoppingCart, OrderDetailsDto>().ReverseMap();
         }
     }
 }

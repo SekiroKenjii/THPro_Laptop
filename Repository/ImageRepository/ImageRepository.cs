@@ -1,5 +1,6 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using Data.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Model.Configurations;
@@ -28,12 +29,23 @@ namespace Repository.ImageRepository
             return await _cloudinary.DestroyAsync(deletionParams);
         }
 
-        public async Task<ImageUploadResult> UploadImage(string entity, IFormFile file)
+        public async Task<ImageUploadResult> UploadImage(string entity, IFormFile file, Gender? gender)
         {
             var uploadParams = new ImageUploadParams();
 
             if(file == null)
             {
+                if(entity == "user")
+                {
+                    uploadParams.Folder = "upload/img/user/";
+                    if (gender == Gender.Female)
+                    {
+                        uploadParams.File = new FileDescription(GetBlankUserImage("female"));
+                        return await _cloudinary.UploadAsync(uploadParams);
+                    }
+                    uploadParams.File = new FileDescription(GetBlankUserImage("male"));
+                    return await _cloudinary.UploadAsync(uploadParams);
+                }
                 uploadParams.File = new FileDescription(GetBlankImage(entity));
                 uploadParams.Folder = $"upload/img/{entity}/";
 
@@ -42,10 +54,23 @@ namespace Repository.ImageRepository
 
             using var stream = file.OpenReadStream();
 
+            if (entity == "product")
+            {
+                uploadParams.File = new FileDescription(file.FileName, stream);
+                uploadParams.Folder = $"upload/img/{entity}_new/";
+
+                return await _cloudinary.UploadAsync(uploadParams);
+            }
+
             uploadParams.File = new FileDescription(file.FileName, stream);
             uploadParams.Folder = $"upload/img/{entity}/";
 
             return await _cloudinary.UploadAsync(uploadParams);
+        }
+        private static string GetBlankUserImage(string gender)
+        {
+            return Directory.GetParent(Directory.GetCurrentDirectory()).FullName +
+                $"\\Assets\\images\\user\\default_{gender}_image.jpg";
         }
         private static string GetBlankImage(string entity)
         {

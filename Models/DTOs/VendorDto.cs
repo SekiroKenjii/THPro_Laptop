@@ -1,6 +1,4 @@
-﻿using Data.Entities;
-using Data.Enums;
-using System.Collections.Generic;
+﻿using Data.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace Model.DTOs
@@ -35,6 +33,5 @@ namespace Model.DTOs
     public class VendorDto : CreateVendorDto
     {
         public int Id { get; set; }
-        public IList<Product> Products { get; set; }
     }
 }

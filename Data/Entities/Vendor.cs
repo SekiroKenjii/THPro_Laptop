@@ -16,6 +16,6 @@ namespace Data.Entities
         public string HomePage { get; set; }
         public Status Status { get; set; }
 
-        public virtual IEnumerable<Product> Products { get; set; }
+        public virtual IList<Product> Products { get; set; }
     }
 }
